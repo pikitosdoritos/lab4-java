@@ -5,7 +5,7 @@ public class OpenAnswerType implements QuestionType {
 
     // Внутрішній стан Flyweight
     // Це назва типу питання, вона однакова для всіх таких об'єктів
-    private final String typeName = "Відкрита відповідь";
+    private final String typeName = "Open answer";
 
     // Повертає назву типу питання
     @Override
@@ -17,7 +17,7 @@ public class OpenAnswerType implements QuestionType {
     // Пояснює, що потрібно ввести відповідь вручну
     @Override
     public void printInstruction() {
-        System.out.println("  [Тип] Введіть відповідь у вільній формі");
+        System.out.println("  [Type] Enter answer in free form");
     }
 
     // Основний метод перевірки відповіді

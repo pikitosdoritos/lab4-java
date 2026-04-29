@@ -8,7 +8,7 @@ public class MultipleAnswerType implements QuestionType {
 
     // Внутрішній стан Flyweight
     // Назва типу питання — однакова для всіх об'єктів цього типу
-    private final String typeName = "Кілька правильних відповідей";
+    private final String typeName = "Multiple answers";
 
     // Повертає назву типу питання
     @Override
@@ -20,7 +20,7 @@ public class MultipleAnswerType implements QuestionType {
     // Пояснює як правильно вводити відповідь
     @Override
     public void printInstruction() {
-        System.out.println("  [Тип] Введіть всі правильні відповіді через кому");
+        System.out.println("  [Type] Enter ALL correct answers separated by comma");
     }
 
     // Основний метод перевірки відповіді

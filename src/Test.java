@@ -1,41 +1,33 @@
 import java.util.List;
 
-// Клас Test описує тест (тобто набір питань)
-// Тут зберігається назва тесту і список питань,
-// а також є логіка проходження тесту студентом
+// Class Test describes a test (set of questions)
+// Contains logic for running the test for a student
 public class Test {
 
-    // Назва тесту (наприклад: "Math Test")
     private String title;
-
-    // Список питань у тесті
-    // Кожне питання — це об'єкт класу Question
     private List<Question> questions;
 
-    // Стратегія оцінювання (патерн Strategy)
-    // Вона визначає, як саме рахується результат
+    // Strategy pattern: defines how score is calculated
     private EvaluationStrategy strategy;
 
-    // Порожній конструктор
     public Test() {
     }
 
-    // Конструктор з параметрами
     public Test(String title, List<Question> questions) {
         this.title = title;
         this.questions = questions;
     }
 
-    // Встановлюємо спосіб оцінювання
+    // Set evaluation strategy
     public void setStrategy(EvaluationStrategy strategy) {
         this.strategy = strategy;
     }
 
-    // Метод conductTest — основна логіка проходження тесту
+    // Main method to run the test
     public int conductTest(Student student, List<String> answers) {
 
         System.out.println("+------------------------------------------+");
-        System.out.println("  Тест: " + title);
+        System.out.println("  Test: " + title);
         System.out.println("  Student: " + student.getName()
                 + ", age: " + student.getAge());
         System.out.println("+------------------------------------------+");
@@ -56,27 +48,27 @@ public class Test {
 
             boolean isCorrect = q.checkAnswer(answer);
 
-            System.out.println("  Result: " + (isCorrect ? "✓ Correct" : "✗ Wrong"));
+            System.out.println("  Result: " + (isCorrect ? "Correct" : "Wrong"));
 
-            if (isCorrect)
+            if (isCorrect) {
                 correct++;
+            }
         }
 
-        // Використовуємо Strategy для підрахунку результату
+        // Use Strategy to calculate score
         int percent = strategy.calculateScore(correct, questions.size());
 
-        // Зберігаємо результат у студента
         student.addResult(title, percent);
 
-        System.out.println("\n  Result: " + correct + " out of "
+        System.out.println("\n  Final result: " + correct + " out of "
                 + questions.size() + " correct (" + percent + "%)");
-                
+
         System.out.println("+------------------------------------------+");
 
         return correct;
     }
 
-    // ---- Getters і setters ----
+    // Getters and setters
 
     public String getTitle() {
         return title;

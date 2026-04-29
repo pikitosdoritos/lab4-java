@@ -5,7 +5,7 @@
 public class SingleAnswerType implements QuestionType {
 
     // Внутрішній стан — назва типу, не змінюється
-    private final String typeName = "Одна правильна відповідь";
+    private final String typeName = "Single answer";
 
     @Override
     public String getTypeName() {
@@ -15,7 +15,7 @@ public class SingleAnswerType implements QuestionType {
     // Інструкція для студента
     @Override
     public void printInstruction() {
-        System.out.println("  [Тип] Оберіть одну правильну відповідь");
+        System.out.println("  [Type] Choose ONE correct answer");
     }
 
     // Перевірка: шукаємо відповідь з isCorrect == true

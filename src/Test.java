@@ -12,80 +12,71 @@ public class Test {
     // Кожне питання — це об'єкт класу Question
     private List<Question> questions;
 
+    // Стратегія оцінювання (патерн Strategy)
+    // Вона визначає, як саме рахується результат
+    private EvaluationStrategy strategy;
+
     // Порожній конструктор
-    // Потрібен для створення об'єкта без початкових значень
     public Test() {
     }
 
     // Конструктор з параметрами
-    // Одразу задаємо назву тесту і список питань
     public Test(String title, List<Question> questions) {
         this.title = title;
         this.questions = questions;
     }
 
+    // Встановлюємо спосіб оцінювання
+    public void setStrategy(EvaluationStrategy strategy) {
+        this.strategy = strategy;
+    }
+
     // Метод conductTest — основна логіка проходження тесту
-    // student — студент, який проходить тест
-    // answers — список відповідей студента (у тому ж порядку, що і питання)
-    // Повертає кількість правильних відповідей
     public int conductTest(Student student, List<String> answers) {
 
-        // Виводимо заголовок тесту
         System.out.println("+------------------------------------------+");
         System.out.println("  Тест: " + title);
-        System.out.println("  Студент: " + student.getName()
-                + ", вік: " + student.getAge());
+        System.out.println("  Student: " + student.getName()
+                + ", age: " + student.getAge());
         System.out.println("+------------------------------------------+");
 
-        // Лічильник правильних відповідей
         int correct = 0;
 
-        // Проходимо по всіх питаннях
         for (int i = 0; i < questions.size(); i++) {
 
-            // Беремо поточне питання
             Question q = questions.get(i);
 
-            System.out.println("\nПитання " + (i + 1) + ":");
+            System.out.println("\nQuestion " + (i + 1) + ":");
 
-            // Виводимо саме питання і варіанти відповідей
             q.display();
 
-            // Отримуємо відповідь студента
-            // Якщо студент дав менше відповідей, ніж питань — беремо пустий рядок
             String answer = (i < answers.size()) ? answers.get(i) : "";
 
-            System.out.println("  Відповідь: " + answer);
+            System.out.println("  Answer: " + answer);
 
-            // Перевіряємо правильність відповіді
-            // Тут використовується логіка з класу Question (включаючи Flyweight)
             boolean isCorrect = q.checkAnswer(answer);
 
-            // Виводимо результат по цьому питанню
-            System.out.println("  Результат: " + (isCorrect ? "✓ Правильно" : "✗ Неправильно"));
+            System.out.println("  Result: " + (isCorrect ? "✓ Correct" : "✗ Wrong"));
 
-            // Якщо відповідь правильна — збільшуємо лічильник
             if (isCorrect)
                 correct++;
         }
 
-        // Рахуємо відсоток правильних відповідей
-        int percent = (int) Math.round((double) correct / questions.size() * 100);
+        // Використовуємо Strategy для підрахунку результату
+        int percent = strategy.calculateScore(correct, questions.size());
 
         // Зберігаємо результат у студента
         student.addResult(title, percent);
 
-        // Виводимо підсумок тесту
-        System.out.println("\n  Підсумок: " + correct + " з "
-                + questions.size() + " правильно (" + percent + "%)");
+        System.out.println("\n  Result: " + correct + " out of "
+                + questions.size() + " correct (" + percent + "%)");
+                
         System.out.println("+------------------------------------------+");
 
-        // Повертаємо кількість правильних відповідей
         return correct;
     }
 
-    // ---- Геттери і сеттери ----
-    // Дають доступ до приватних полів класу
+    // ---- Getters і setters ----
 
     public String getTitle() {
         return title;
@@ -103,8 +94,6 @@ public class Test {
         this.questions = questions;
     }
 
-    // Перевизначення toString()
-    // Використовується для зручного виводу тесту
     @Override
     public String toString() {
         return "Test: " + title + "\nQuestions: " + questions;

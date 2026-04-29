@@ -49,7 +49,7 @@ public class Question {
     // - варіанти відповідей
     public void display() {
 
-        System.out.println("  Питання: " + text);
+        System.out.println("  Question: " + text);
 
         // Якщо тип питання заданий — виводимо інструкцію
         if (questionType != null) {
@@ -57,7 +57,8 @@ public class Question {
         }
 
         // Виводимо всі варіанти відповідей
-        System.out.println("  Варіанти:");
+        System.out.println("  Options:");
+
         for (int i = 0; i < answers.size(); i++) {
             System.out.println("    " + (i + 1) + ") " + answers.get(i).getText());
         }

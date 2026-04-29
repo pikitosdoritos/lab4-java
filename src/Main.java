@@ -89,6 +89,10 @@ public class Main {
         Test test1 = new Test("Math Test", Arrays.asList(q1, q2, q3));
         Test test2 = new Test("OOP Test", Arrays.asList(q4, q5, q6));
 
+        // Встановлюємо стратегію оцінювання (Strategy)
+        test1.setStrategy(new SimpleEvaluationStrategy());
+        test2.setStrategy(new PassFailEvaluationStrategy());
+
         // -----------------------------
         // Створюємо студентів
         // -----------------------------

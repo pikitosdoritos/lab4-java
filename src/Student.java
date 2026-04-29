@@ -41,11 +41,11 @@ public class Student {
     public void printResults() {
 
         // Виводимо заголовок
-        System.out.println("=== Результати: " + name + " ===");
+        System.out.println("=== Results: " + name + " ===");
 
         // Якщо студент ще не проходив тести
         if (results.isEmpty()) {
-            System.out.println("  Тестів ще не пройдено.");
+            System.out.println("  No tests taken yet.");
             return;
         }
 
@@ -64,7 +64,7 @@ public class Student {
 
         // Виводимо середній бал
         System.out.printf("  %-30s %3d%%%n",
-                "Середній бал:", sum / results.size());
+                "Average score:", sum / results.size());
 
         System.out.println();
     }
